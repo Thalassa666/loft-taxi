@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Login from "./Login";
-import Map from "./Map";
-import Profile from "./Profile";
-import Registration from "./Registration";
-import { pageUrls } from "./constants";
-import PrivatRoute from "./PrivateRoute";
+import Login from "../pages/Login";
+import Map from "../pages/Map";
+import Profile from "../pages/Profile";
+import Registration from "../pages/Registration";
+import { pageUrls } from "../components/constants";
+import PrivatRoute from "../components/PrivateRoute";
 
 function View() {
   return (

@@ -11,7 +11,7 @@ function Map() {
     const myMap = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [-2.4279681677595, 40.76245847728178],
+      center: [-122.4279681677595, 37.76245847728178],
       zoom: 9,
     });
     return () => myMap.remove();

@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { func } from "prop-types";
 import "./App.css";
-import Header from "./Header";
-import View from "./View";
+import Header from "./components/Header";
+import View from "./components/View";
 import { useLocation } from "react-router-dom";
-import { pageUrls } from "./constants";
+import { pageUrls } from "./components/constants";
 
 import * as actions from "./redux/actions";
 
