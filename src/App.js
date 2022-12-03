@@ -1,42 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { func } from "prop-types";
 import "./App.css";
-import Header from "./components/Header";
-import Login from "./pages/Login";
-import Map from "./pages/Map";
-import Profile from "./pages/Profile";
-import Registration from "./pages/Registration";
-import AuthProvider from "./pages/AuthContext";
-import { pageNames } from "./components/constants";
+import Header from "./Header";
+import View from "./View";
+import { useLocation } from "react-router-dom";
+import { pageUrls } from "./constants";
 
-export const AuthContext = React.createContext();
+import * as actions from "./redux/actions";
 
-function App() {
-  const [page, setPage] = useState(pageNames.REGISTRATION);
+const proopTypes = {
+  loginSuccess: func.isRequired,
+};
 
-  const onPageChange = (pageName) => {
-    setPage(pageName);
-  };
+export function App({ loginSuccess }) {
+  const { pathname } = useLocation();
 
   const isLoginPages =
-    page === pageNames.LOGIN || page === pageNames.REGISTRATION;
+    pathname === pageUrls.LOGIN || pathname === pageUrls.HOME;
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      loginSuccess(token);
+    }
+  });
 
   return (
-    <AuthProvider changePage={setPage}>
-      <div className="app" data-testid="app">
-        {!isLoginPages && <Header onPageChange={onPageChange} />}
-        {
-          {
-            [pageNames.LOGIN]: <Login onPageChange={onPageChange} />,
-            [pageNames.REGISTRATION]: (
-              <Registration onPageChange={onPageChange} />
-            ),
-            [pageNames.MAP]: <Map />,
-            [pageNames.PROFILE]: <Profile />,
-          }[page]
-        }
-      </div>
-    </AuthProvider>
+    <div className="app" data-testid="app">
+      {!isLoginPages && <Header />}
+      <View />
+    </div>
   );
 }
-
-export default App;
+App.proopTypes = proopTypes;
+export default connect(null, actions)(App);
