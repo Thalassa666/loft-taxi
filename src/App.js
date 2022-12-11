@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { func } from "prop-types";
+import "./App.css";
+import Header from "./components/Header";
+import View from "./components/View";
+import { useLocation } from "react-router-dom";
+import { pageUrls } from "./components/constants";
 
-function App() {
+import * as actions from "./redux/actions";
+
+const proopTypes = {
+  loginSuccess: func.isRequired,
+  getCardRequest: func.isRequired,
+};
+
+export function App({ loginSuccess, getCardRequest }) {
+  const { pathname } = useLocation();
+
+  const isLoginPages =
+    pathname === pageUrls.LOGIN || pathname === pageUrls.HOME;
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      loginSuccess(token);
+      getCardRequest(token);
+    }
+  }, [loginSuccess, getCardRequest]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app" data-testid="app">
+      {!isLoginPages && <Header />}
+      <View />
     </div>
   );
 }
-
-export default App;
+App.proopTypes = proopTypes;
+export default connect(null, actions)(App);
