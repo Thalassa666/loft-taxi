@@ -6,7 +6,7 @@ import LoginForm  from '../Login/LoginForm';
 import SignupForm from '../Signup/SignupForm';
 import { Logo } from 'loft-taxi-mui-theme';
 
-const BackgroundURL = '../background.jpg';
+const BackgroundURL = '../Auth/background.jpg';
 
 const useStyles = makeStyles(theme => ({
   login: {
