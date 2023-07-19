@@ -144,7 +144,7 @@ const signUpValidator = (values) => {
   if (!values.email) {
     errors.email = 'Введите адресс почты';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Адресс почты не правильный';
+    errors.email = 'Адрес почты неправильный';
   }
 
   if (!values.name) {
